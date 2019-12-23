@@ -1,0 +1,11 @@
+{
+   "name": "Git-Plus-Plus",
+   "version": "0.0.1",
+   "author": "PJTSearch",
+   "description": "Git plugin",
+   "main": "main.js",
+   "css": [],
+   "dependencies": {
+      "simple-git": "^1.129.0"
+   }
+}
