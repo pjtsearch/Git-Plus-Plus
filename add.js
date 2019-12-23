@@ -13,7 +13,7 @@ module.exports = {
 <h3> Untracked </h3>
 <pre>${JSON.stringify(status.files.filter(file=>file.index !== "A" || file.working_dir !== " ").map(file=>file.path), null, 4)}</pre>
 <h3> Tracked </h3>
-<pre>${JSON.stringify(status.files.map(file=>file.path), null, 4)}</pre>
+<pre>${JSON.stringify(status.files.filter(file=>file.index === "A" && file.working_dir !== " ").map(file=>file.path), null, 4)}</pre>
 `,
 			buttons: {
 				"Add All": {click:()=>git.add('./*')},

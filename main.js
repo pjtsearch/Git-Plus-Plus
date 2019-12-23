@@ -7,6 +7,7 @@ graviton.gitPlusPlus = gitPlusPlus
 const status = require("./status")
 const add = require("./add")
 const init = require("./init")
+const commit = require("./commit")
 
 
 const dropdown = new dropMenu({
@@ -17,7 +18,8 @@ dropdown.setList({
   "list":{
     "Status":status,
 		"Add":add,
-		"Init":init
+		"Init":init,
+		"Commit":commit
   }
 })
 
