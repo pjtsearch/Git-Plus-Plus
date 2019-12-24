@@ -5,7 +5,7 @@ module.exports = {
 		const git = simpleGit(graviton.getCurrentDirectory());
 
 		const status = await git.status();
-		const stagedFiles = status.files.filter(file=>status.staged.find(staged=>staged===file.path))
+		const stagedFiles = status.files.filter(file=>file.working_dir===" ")
 
 		let dialog = new Dialog({
 			id: "git-plus-plus-status-dialog",

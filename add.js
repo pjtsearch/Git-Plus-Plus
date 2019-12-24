@@ -13,7 +13,7 @@ module.exports = {
 <h3> Unstaged </h3>
 <pre>${JSON.stringify(status.files.filter(file=>file.working_dir!==" "), null, 4)}</pre>
 <h3> Tracked </h3>
-<pre>${JSON.stringify(status.staged, null, 2)}</pre>
+<pre>${JSON.stringify(status.files.filter(file=>file.working_dir===" "))}</pre>
 `,
 			buttons: {
 				"Add All": {click:()=>git.add('./*')},

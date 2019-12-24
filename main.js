@@ -8,6 +8,8 @@ const status = require("./status")
 const add = require("./add")
 const init = require("./init")
 const commit = require("./commit")
+const push = require("./push")
+const addRemote = require("./addRemote")
 
 
 const dropdown = new dropMenu({
@@ -19,7 +21,9 @@ dropdown.setList({
     "Status":status,
 		"Add":add,
 		"Init":init,
-		"Commit":commit
+		"Commit":commit,
+		"Push":push,
+		"Add Remote":addRemote
   }
 })
 
