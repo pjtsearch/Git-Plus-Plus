@@ -5,14 +5,15 @@ module.exports = {
 		const git = simpleGit(graviton.getCurrentDirectory());
 
 		const status = await git.status();
+		const stagedFiles = status.files.filter(file=>status.staged.find(staged=>staged===file.path))
 
 		let dialog = new Dialog({
 			id: "git-plus-plus-status-dialog",
 			title: "Git Commit",
 			content: `
 <h3> To be commited: </h3>
-<pre>${JSON.stringify(status.files.map(file=>file.path), null, 2)}</pre>
-<input id="commit-message" placeHolder="Commit message"></input>
+<pre>${JSON.stringify(stagedFiles, null, 2)}</pre>
+<input class="input4" id="commit-message" placeHolder="Commit message"></input>
 `,
 			buttons: {
 				"Commit": {click:async()=>{

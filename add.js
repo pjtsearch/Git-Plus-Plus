@@ -10,10 +10,10 @@ module.exports = {
 			id: "git-plus-plus-status-dialog",
 			title: "Git Add",
 			content: `
-<h3> Untracked </h3>
-<pre>${JSON.stringify(status.files.filter(file=>file.index !== "A" || file.working_dir !== " ").map(file=>file.path), null, 4)}</pre>
+<h3> Unstaged </h3>
+<pre>${JSON.stringify(status.files.filter(file=>file.working_dir!==" "), null, 4)}</pre>
 <h3> Tracked </h3>
-<pre>${JSON.stringify(status.files.filter(file=>file.index === "A" && file.working_dir !== " ").map(file=>file.path), null, 4)}</pre>
+<pre>${JSON.stringify(status.staged, null, 2)}</pre>
 `,
 			buttons: {
 				"Add All": {click:()=>git.add('./*')},
