@@ -9,6 +9,7 @@ const add = require("./add")
 const init = require("./init")
 const commit = require("./commit")
 const push = require("./push")
+const pull = require("./pull")
 const addRemote = require("./addRemote")
 
 
@@ -23,7 +24,8 @@ dropdown.setList({
 		"Init":init,
 		"Commit":commit,
 		"Push":push,
-		"Add Remote":addRemote
+		"Add Remote":addRemote,
+		"Pull":pull
   }
 })
 

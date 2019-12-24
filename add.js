@@ -12,7 +12,7 @@ module.exports = {
 			content: `
 <h3> Unstaged </h3>
 <pre>${JSON.stringify(status.files.filter(file=>file.working_dir!==" "), null, 4)}</pre>
-<h3> Tracked </h3>
+<h3> Staged </h3>
 <pre>${JSON.stringify(status.files.filter(file=>file.working_dir===" "))}</pre>
 `,
 			buttons: {
