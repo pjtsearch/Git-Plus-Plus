@@ -10,6 +10,7 @@ A Git plugin for Graviton.
 - Init
 - Commit
 - Push
+- Pull
 - Add Remote
 
 GPL v3
