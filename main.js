@@ -11,6 +11,7 @@ const commit = require("./commit")
 const push = require("./push")
 const pull = require("./pull")
 const addRemote = require("./addRemote")
+const multi = require("./multi")
 
 
 const dropdown = new dropMenu({
@@ -25,8 +26,8 @@ dropdown.setList({
 		"Commit":commit,
 		"Push":push,
 		"Add Remote":addRemote,
-		"Pull":pull
+		"Pull":pull,
+		"Menu":multi
   }
 })
-
 
