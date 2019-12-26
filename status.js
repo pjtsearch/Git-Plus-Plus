@@ -11,7 +11,7 @@ module.exports = {
 			id: "git-plus-plus-status-dialog",
 			title: "Git Status",
 			content: `
-<pre>${JSON.stringify(status.files, null, 4)}</pre>
+${status.files.map(file=>`<p>${file.path} - ${file.working_dir.trim() || file.index.trim()}</p>`)}
 `,
 			buttons: {
 				"Close": "closeDialog(this);"
