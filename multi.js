@@ -10,13 +10,17 @@ module.exports = {
 			let staged = status.files.filter(file=>file.working_dir===" ");
 
 			let dialogContent = `
-			<h3> Unstaged </h3>
-			${unstaged.map(file=>`<p>${file.path} - ${file.working_dir}</p>`).join("\n")}
-			<h3> Staged </h3>
-			${staged.map(file=>`<p>${file.path} - ${file.index}</p>`).join("\n")}
-			<button onclick="graviton.gitPlusPlus.addAll()">Add All</button>
-			<input class="input4" id="commit-message" placeHolder="Commit message"></input>
-			<button onclick="graviton.gitPlusPlus.commit(document.getElementById('commit-message').value)">Commit</button>
+			<div id="git-menu-add" style="margin:10px">
+				<h3> Unstaged </h3>
+				${unstaged.map(file=>`<p>${file.path} - ${file.working_dir}</p>`).join("\n")}
+				<h3> Staged </h3>
+				${staged.map(file=>`<p>${file.path} - ${file.index}</p>`).join("\n")}
+				<button onclick="graviton.gitPlusPlus.addAll()" class="button1">Add All</button>
+			</div>
+			<div id="git-menu-commit" style="margin:10px">
+				<input class="input4" id="commit-message" placeHolder="Commit message"></input>
+				<button style="margin:10px" onclick="graviton.gitPlusPlus.commit(document.getElementById('commit-message').value)" class="button1">Commit</button>
+			</div>
 			`
 			return {git,status,unstaged,staged,dialogContent}
 		}
@@ -44,7 +48,7 @@ module.exports = {
 			state = await getState()
 			tab.setData(state.dialogContent)
 		}
-	
+		
 		/*let dialog = new Dialog({
 			id: "git-plus-plus-status-dialog",
 			title: "Git Menu",
