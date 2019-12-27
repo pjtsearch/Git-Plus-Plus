@@ -10,6 +10,9 @@ module.exports = {
 			let staged = status.files.filter(file=>file.working_dir===" ");
 
 			let dialogContent = `
+			<button style="margin:10px" onclick="graviton.gitPlusPlus.openPush()" class="button1">Push</button>
+			<button style="margin:10px" onclick="graviton.gitPlusPlus.openPull()" class="button1">Pull</button>
+
 			<div id="git-menu-add" style="margin:10px">
 				<h3> Unstaged </h3>
 				${unstaged.map(file=>`<p>${file.path} - ${file.working_dir}</p>`).join("\n")}

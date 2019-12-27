@@ -1,7 +1,6 @@
 const simpleGit = require('simple-git/promise');
 
-module.exports = {
-	click:async()=>{
+let openPush = async()=>{
 		const git = simpleGit(graviton.getCurrentDirectory());
 
 		const status = await git.status();
@@ -31,4 +30,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			}
 		})
 		}
-}
+
+graviton.gitPlusPlus.openPush = openPush
+
+module.exports = {click:openPush}
