@@ -11,14 +11,19 @@ let openMulti = async()=>{
 			let dialogContent = `
 			<button style="margin:10px" onclick="graviton.gitPlusPlus.openPush()" class="button1">Push</button>
 			<button style="margin:10px" onclick="graviton.gitPlusPlus.openPull()" class="button1">Pull</button>
+			
+			<span class="divider-2"></span>
 
 			<div id="git-menu-add" style="margin:10px">
-				<h3> Unstaged </h3>
+				<h3> Unstaged <button onclick="graviton.gitPlusPlus.stageAll()" class="button1">Stage All</button></h3>
 				${unstaged.map(file=>`<p>${file.path} - ${file.working_dir}</p>`).join("\n")}
-				<h3> Staged </h3>
+				<h3> Staged  <button onclick="graviton.gitPlusPlus.unstageAll()" class="button1">Unstage All</button></h3>
 				${staged.map(file=>`<p>${file.path} - ${file.index}</p>`).join("\n")}
-				<button onclick="graviton.gitPlusPlus.addAll()" class="button1">Add All</button>
+				
 			</div>
+
+			<span class="divider-2"></span>
+
 			<div id="git-menu-commit" style="margin:10px">
 				<input class="input4" id="commit-message" placeHolder="Commit message"></input>
 				<button style="margin:10px" onclick="graviton.gitPlusPlus.commit(document.getElementById('commit-message').value)" class="button1">Commit</button>
@@ -37,9 +42,16 @@ let openMulti = async()=>{
 				data:state.dialogContent
 		}) 
 		
-		graviton.gitPlusPlus.addAll = async()=>{
+		graviton.gitPlusPlus.stageAll = async()=>{
 			let state = await getState()
 			console.log(state.git.add('./*'));
+			state = await getState()
+			tab.setData(state.dialogContent)
+		}
+		
+		graviton.gitPlusPlus.unstageAll = async()=>{
+			let state = await getState()
+			console.log(state.git.reset(['./*']));
 			state = await getState()
 			tab.setData(state.dialogContent)
 		}
