@@ -1,7 +1,6 @@
 const simpleGit = require('simple-git/promise');
 
-module.exports = {
-	click:async()=>{
+let openMulti = async()=>{
 		let getState = async()=>{
 			
 			let git = simpleGit(graviton.getCurrentDirectory());
@@ -75,7 +74,8 @@ module.exports = {
 		
 
 	}
-}
+
+module.exports = {click:openMulti}
 
 
 

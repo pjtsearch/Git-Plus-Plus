@@ -20,10 +20,12 @@ const dropdown = new dropMenu({
 dropdown.setList({
   "button": "Git++",
   "list":{
+		/*
     "Status":status,
 		"Add":add,
-		"Init":init,
 		"Commit":commit,
+		*/
+		"Init":init,
 		"Push":push,
 		"Add Remote":addRemote,
 		"Pull":pull,
