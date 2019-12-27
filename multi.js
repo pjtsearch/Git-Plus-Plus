@@ -21,6 +21,7 @@ module.exports = {
 				<input class="input4" id="commit-message" placeHolder="Commit message"></input>
 				<button style="margin:10px" onclick="graviton.gitPlusPlus.commit(document.getElementById('commit-message').value)" class="button1">Commit</button>
 			</div>
+			<button style="margin:10px" onclick="graviton.gitPlusPlus.closeMenu()" class="button1">Close</button>
 			`
 			return {git,status,unstaged,staged,dialogContent}
 		}
@@ -47,6 +48,10 @@ module.exports = {
 			console.log(await state.git.commit(message))
 			state = await getState()
 			tab.setData(state.dialogContent)
+		}
+		graviton.gitPlusPlus.closeMenu = ()=>{
+			closeTab("git_menufree")
+			screens.remove(editor_screens[1].id)
 		}
 		
 		/*let dialog = new Dialog({
