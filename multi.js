@@ -16,7 +16,7 @@ module.exports = {
 			${staged.map(file=>`<p>${file.path} - ${file.index}</p>`).join("\n")}
 			<button onclick="graviton.gitPlusPlus.addAll()">Add All</button>
 			<input class="input4" id="commit-message" placeHolder="Commit message"></input>
-			<button onclick="graviton.gitPlusPlus.commit(document.getElementById("commit-message").value)">Commit</button>
+			<button onclick="graviton.gitPlusPlus.commit(document.getElementById('commit-message').value)">Commit</button>
 			`
 			return {git,status,unstaged,staged,dialogContent}
 		}
@@ -38,6 +38,7 @@ module.exports = {
 		}
 		
 		graviton.gitPlusPlus.commit = async(message)=>{
+			console.log(message)
 			let state = await getState()
 			console.log(await state.git.commit(message))
 			state = await getState()
