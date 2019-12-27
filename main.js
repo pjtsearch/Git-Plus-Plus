@@ -31,3 +31,7 @@ dropdown.setList({
   }
 })
 
+document.addEventListener("tab_created",function(e){
+	console.log("New tab's ID:"+e.detail.tab.id)
+})
+
