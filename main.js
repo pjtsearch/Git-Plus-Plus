@@ -29,7 +29,7 @@ dropdown.setList({
 		"Push":push,
 		"Add Remote":addRemote,
 		"Pull":pull,
-		"Open Menu":multi
+		"Open Menu (Alt+a)":multi
   }
 })
 
@@ -37,3 +37,6 @@ document.addEventListener("tab_created",function(e){
 	console.log("New tab's ID:"+e.detail.tab.id)
 })
 
+window.onkeyup = function(e){
+    if (e.altKey && e.key === "a") graviton.gitPlusPlus.toggleMenu()
+}

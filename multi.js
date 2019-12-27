@@ -1,6 +1,7 @@
 const simpleGit = require('simple-git/promise');
 
 let openMulti = async()=>{
+		graviton.gitPlusPlus.isMenuOpen = true
 		let getState = async()=>{
 			
 			let git = simpleGit(graviton.getCurrentDirectory());
@@ -63,10 +64,7 @@ let openMulti = async()=>{
 			state = await getState()
 			tab.setData(state.dialogContent)
 		}
-		graviton.gitPlusPlus.closeMenu = ()=>{
-			closeTab("git_menufree")
-			screens.remove(editor_screens[1].id)
-		}
+		
 		
 		/*let dialog = new Dialog({
 			id: "git-plus-plus-status-dialog",
@@ -89,6 +87,21 @@ let openMulti = async()=>{
 
 module.exports = {click:openMulti}
 
+graviton.gitPlusPlus.isMenuOpen = false
 
+graviton.gitPlusPlus.closeMenu = ()=>{
+	closeTab("git_menufree")
+	screens.remove(editor_screens[1].id)
+	graviton.gitPlusPlus.isMenuOpen = false
+}
 
+graviton.gitPlusPlus.openMenu = openMulti
+
+graviton.gitPlusPlus.toggleMenu = ()=>{
+	if (graviton.gitPlusPlus.isMenuOpen){
+		graviton.gitPlusPlus.closeMenu()
+	}else{
+		graviton.gitPlusPlus.openMenu()
+	}
+}
 
