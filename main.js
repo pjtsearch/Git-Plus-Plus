@@ -33,7 +33,20 @@ dropdown.setList({
   }
 })
 
+let createControl = ()=> new Control({
+  text:"Git++",
+  hint:"Toggle Git++ menu",
+  onClick: ()=> graviton.gitPlusPlus.toggleMenu(),
+	screen:editor_screens[0].id
+})
+
+createControl()
+
 document.addEventListener("tab_created",function(e){
 	console.log("New tab's ID:"+e.detail.tab.id)
+	if (!document.querySelector(".g_status_bar > span[title='Toggle Git++ menu']")){
+		createControl()
+	}
 })
+
 
