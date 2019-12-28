@@ -25,6 +25,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 					let remote = document.getElementById("pull-remote").value;
 					let branch = document.getElementById("pull-branch").value;
 					console.log(await git.pull(remote,branch))
+					graviton.gitPlusPlus.updateControlStatus()
 				}},
 				"Close": "closeDialog(this);"
 			}
