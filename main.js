@@ -4,10 +4,10 @@ const gitPlusPlus = new Plugin({
 })
 graviton.gitPlusPlus = gitPlusPlus
 
-const status = require("./status")
-const add = require("./add")
+//const status = require("./status")
+//const add = require("./add")
 const init = require("./init")
-const commit = require("./commit")
+//const commit = require("./commit")
 const push = require("./push")
 const pull = require("./pull")
 const addRemote = require("./addRemote")
@@ -62,7 +62,8 @@ const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 	options.text = "Git++"
 	if(status.files.length > 0){
 		options.text += " *"
-	}if(diff.files.length > 0){
+	}
+	if(diff.files.length > 0){
 		options.text += " ^"
 	}
 	ctl.setText(options.text)
