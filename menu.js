@@ -2,6 +2,7 @@ const Vue = require("vue/dist/vue.js")
 const simpleGit = require('simple-git/promise');
 
 const openMenu = ()=>{
+	graviton.gitPlusPlus.isMenuOpen = true
 	screens.add()
 	var tab = new Tab({
 		id:"git_menu",
@@ -32,6 +33,7 @@ const openMenu = ()=>{
 		<input class="input4" placeHolder="Commit message" v-model="commitMessage"></input>
 		<button style="margin:10px" @click="commit()" class="button1">Commit</button>
 	</div>
+	<button style="margin:10px" @click="closeMenu()" class="button1">Close</button>
 </div>
 `
 		,data: {
@@ -71,6 +73,9 @@ const openMenu = ()=>{
 				console.log(await git.commit(this.commitMessage))
 				await this.updateStatus()
 				this.commitMessage = ""
+			},
+			closeMenu(){
+				graviton.gitPlusPlus.closeMenu()
 			}
 		},
 		computed:{
@@ -83,6 +88,24 @@ const openMenu = ()=>{
 		}
 	})
 	//puffin.render(Menu,document.getElementById("git_menu_editor"))
+}
+
+graviton.gitPlusPlus.isMenuOpen = false
+
+graviton.gitPlusPlus.openMenu = openMenu
+
+graviton.gitPlusPlus.closeMenu = ()=>{
+	closeTab("git_menufree")
+	screens.remove(editor_screens[1].id)
+	graviton.gitPlusPlus.isMenuOpen = false
+}
+
+graviton.gitPlusPlus.toggleMenu = ()=>{
+	if (graviton.gitPlusPlus.isMenuOpen){
+		graviton.gitPlusPlus.closeMenu()
+	}else{
+		graviton.gitPlusPlus.openMenu()
+	}
 }
 
 module.exports = openMenu
