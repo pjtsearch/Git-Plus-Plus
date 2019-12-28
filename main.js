@@ -38,11 +38,16 @@ const updateControlStatus = async(control,controlOptions)=>{
 
 	let git = simpleGit(graviton.getCurrentDirectory());
 	let status = await git.status();
-	console.log(await git.diffSummary())
+	await git.fetch()
+	let currentBranch = (await git.branch()).current;
+	let diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`])
+	controlOptions.text = "Git++"
 	if(status.files.length > 0){
-		controlOptions.text = "* Git++"
-		control.setText("* Git++")
+		controlOptions.text += " *"
+	}if(diff.files.length > 0){
+		controlOptions.text += " ^"
 	}
+	control.setText(controlOptions.text)
 }
 
 let controlOptions = {
