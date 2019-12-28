@@ -14,10 +14,15 @@ const openMenu = ()=>{
 <style>
 .git-menu-staging{
 	margin:10px;
-  height:calc(50vh - 115px);
+  //height:calc(50vh - 115px);
 }
 #git-menu-commit{
 	padding:7px;
+}
+#git-menu-vue-content{
+	display: grid;
+	grid-template-rows: auto auto 50px;
+	height: 100%;
 }
 </style>
 `
@@ -26,7 +31,7 @@ const openMenu = ()=>{
 		el: '#git_menu_editor .vue-content',
 		template:
 `
-<div>
+<div id="git-menu-vue-content">
 	<div id="git-menu-unstaged" class="git-menu-staging" style="">
 		<h3> Unstaged <button @click="stageAll()" class="button1" style="float:right">Stage All</button></h3>
 		<p :key="file.path" v-for="file in unstaged">{{file.path}} - {{file.working_dir}}</p>
