@@ -14,7 +14,7 @@ const addRemote = require("./addRemote")
 //const multi = require("./multi")
 const openMenu = require("./menu")
 
-openMenu()
+//openMenu()
 
 const dropdown = new dropMenu({
   id:"git-plus-plus-dropdown"
@@ -31,12 +31,12 @@ dropdown.setList({
 		"Push":push,
 		"Add Remote":addRemote,
 		"Pull":pull,
-		//"Open Menu (ctrl+shift+a)":multi
+		"Open Menu (ctrl+shift+a)":{click:openMenu}
   }
 })
 
 
-
+//control
 let controlOptions = {
   text:"Git++",
   hint:"Toggle Git++ menu",
@@ -86,3 +86,9 @@ setInterval(async()=>{
 
 graviton.gitPlusPlus.updateControlStatus = updateControlStatus
 
+
+// shortcut
+var {shortcutJS,Action,KeyCombo} = require("shortcutjs")
+shortcutJS.init()
+shortcutJS.addAction(new Action('toggleGitPlusPlus', KeyCombo.fromString('ctrl shift a')))
+shortcutJS.subscribe('toggleGitPlusPlus', graviton.gitPlusPlus.toggleMenu)
