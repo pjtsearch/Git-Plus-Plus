@@ -8,32 +8,41 @@ const openMenu = ()=>{
 		id:"git_menu",
 		type:"free",
 		name:'Git Menu',
-		data:`<div class="vue-content"></div>`
+		data:
+`
+<div class="vue-content"></div>
+<style>
+.git-menu-staging{
+	margin:10px;
+  height:calc(50vh - 115px);
+}
+#git-menu-commit{
+	padding:7px;
+}
+</style>
+`
 	}) 
 	var menu = new Vue({
 		el: '#git_menu_editor .vue-content',
 		template:
 `
 <div>
-	<button style="margin:10px" @click="openPush()" class="button1">Push</button>
-	<button style="margin:10px" @click="openPull()" class="button1">Pull</button>
-
-	<span class="divider-2"></span>
-
-	<div id="git-menu-add" style="margin:10px">
-		<h3> Unstaged <button @click="stageAll()" class="button1">Stage All</button></h3>
+	<div id="git-menu-unstaged" class="git-menu-staging" style="">
+		<h3> Unstaged <button @click="stageAll()" class="button1" style="float:right">Stage All</button></h3>
 		<p :key="file.path" v-for="file in unstaged">{{file.path}} - {{file.working_dir}}</p>
-		<h3> Staged  <button @click="unstageAll()" class="button1">Unstage All</button></h3>
+	</div>
+	<div id="git-menu-staged" class="git-menu-staging" style="">
+		<h3> Staged  <button @click="unstageAll()" class="button1" style="float:right">Unstage All</button></h3>
 		<p :key="file.path" v-for="file in staged">{{file.path}} - {{file.index}}</p>
 	</div>
 
-	<span class="divider-2"></span>
-
-	<div id="git-menu-commit" style="margin:10px">
+	<div id="git-menu-commit" style="padding:7px">
 		<input class="input4" placeHolder="Commit message" v-model="commitMessage"></input>
 		<button style="margin:10px" @click="commit()" class="button1">Commit</button>
+		<button style="margin:10px" @click="openPush()" class="button1">Push</button>
+		<button style="margin:10px" @click="openPull()" class="button1">Pull</button>
+		<button style="margin:10px" @click="closeMenu()" class="button1">Close</button>
 	</div>
-	<button style="margin:10px" @click="closeMenu()" class="button1">Close</button>
 </div>
 `
 		,data: {
