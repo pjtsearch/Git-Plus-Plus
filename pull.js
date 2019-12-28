@@ -22,8 +22,8 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 `,
 			buttons: {
 				"Pull": {click:async()=>{
-					let remote = document.getElementById("push-remote").value;
-					let branch = document.getElementById("push-branch").value;
+					let remote = document.getElementById("pull-remote").value;
+					let branch = document.getElementById("pull-branch").value;
 					console.log(await git.pull(remote,branch))
 				}},
 				"Close": "closeDialog(this);"
