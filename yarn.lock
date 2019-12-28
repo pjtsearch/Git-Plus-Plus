@@ -14,11 +14,6 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-shortcutjs@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/shortcutjs/-/shortcutjs-1.6.0.tgz#352c1fc40422d7bb1fd94182b5a2b679b4895158"
-  integrity sha1-NSwfxAQi17sf2UGCtaK2ebSJUVg=
-
 simple-git@^1.129.0:
   version "1.129.0"
   resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.129.0.tgz#eddd2611d2bf41c77e1d08cd70c0b7f3af785040"
