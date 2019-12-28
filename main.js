@@ -33,20 +33,43 @@ dropdown.setList({
   }
 })
 
-let createControl = ()=> new Control({
+const updateControlStatus = async(control,controlOptions)=>{
+	const simpleGit = require('simple-git/promise');
+
+	let git = simpleGit(graviton.getCurrentDirectory());
+	let status = await git.status();
+	console.log(await git.diffSummary())
+	if(status.files.length > 0){
+		controlOptions.text = "* Git++"
+		control.setText("* Git++")
+	}
+}
+
+let controlOptions = {
   text:"Git++",
   hint:"Toggle Git++ menu",
   onClick: ()=> graviton.gitPlusPlus.toggleMenu(),
 	screen:editor_screens[0].id
-})
+}
+const createControl = (options)=> {
+	let res = new Control(options)
+	updateControlStatus(res,options)
+	return res
+}
+let control = createControl(controlOptions)
 
-createControl()
-
-document.addEventListener("tab_created",function(e){
+document.addEventListener("tab_created",(e)=>{
 	console.log("New tab's ID:"+e.detail.tab.id)
 	if (!document.querySelector(".g_status_bar > span[title='Toggle Git++ menu']")){
-		createControl()
+		control = createControl(controlOptions)
 	}
 })
 
+document.addEventListener("loaded_project",(e)=>{
+	updateControlStatus(control,controlOptions)
+})
+
+setInterval(async()=>{
+	updateControlStatus(control,controlOptions)
+},10000)
 
