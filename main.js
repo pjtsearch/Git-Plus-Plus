@@ -29,7 +29,7 @@ dropdown.setList({
 		"Push":push,
 		"Add Remote":addRemote,
 		"Pull":pull,
-		"Open Menu (Alt+a)":multi
+		"Open Menu (ctrl+shift+a)":multi
   }
 })
 

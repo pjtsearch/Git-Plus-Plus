@@ -6,6 +6,7 @@
    "main": "main.js",
    "css": [],
    "dependencies": {
+      "shortcutjs": "^1.6.0",
       "simple-git": "^1.129.0"
    }
 }

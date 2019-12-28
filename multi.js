@@ -105,6 +105,13 @@ graviton.gitPlusPlus.toggleMenu = ()=>{
 	}
 }
 
-window.onkeydown = (e)=>{
-    if (e.altKey && e.key === "a") graviton.gitPlusPlus.toggleMenu()
-}
+//window.onkeydown = (e)=>{
+//    if (e.altKey && e.key === "a") graviton.gitPlusPlus.toggleMenu()
+//}
+
+
+var {shortcutJS,Action,KeyCombo} = require("shortcutjs")
+shortcutJS.init()
+shortcutJS.addAction(new Action('toggleGitPlusPlus', KeyCombo.fromString('ctrl shift a')))
+shortcutJS.subscribe('toggleGitPlusPlus', graviton.gitPlusPlus.toggleMenu)
+
