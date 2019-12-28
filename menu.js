@@ -51,6 +51,7 @@ const openMenu = ()=>{
 				let git = simpleGit(graviton.getCurrentDirectory());
 				this.status = await git.status();
 				console.log(this.status)
+				graviton.gitPlusPlus.updateControlStatus()
 			},
 			openPush(){
 				graviton.gitPlusPlus.openPush()
