@@ -48,6 +48,7 @@ let openMulti = async()=>{
 			console.log(state.git.add('./*'));
 			state = await getState()
 			tab.setData(state.dialogContent)
+			graviton.gitPlusPlus.updateControlStatus()
 		}
 		
 		graviton.gitPlusPlus.unstageAll = async()=>{
@@ -55,6 +56,7 @@ let openMulti = async()=>{
 			console.log(state.git.reset(['./*']));
 			state = await getState()
 			tab.setData(state.dialogContent)
+			graviton.gitPlusPlus.updateControlStatus()
 		}
 		
 		graviton.gitPlusPlus.commit = async(message)=>{
@@ -63,6 +65,7 @@ let openMulti = async()=>{
 			console.log(await state.git.commit(message))
 			state = await getState()
 			tab.setData(state.dialogContent)
+			graviton.gitPlusPlus.updateControlStatus()
 		}
 		
 		

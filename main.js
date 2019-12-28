@@ -33,22 +33,7 @@ dropdown.setList({
   }
 })
 
-const updateControlStatus = async(control,controlOptions)=>{
-	const simpleGit = require('simple-git/promise');
 
-	let git = simpleGit(graviton.getCurrentDirectory());
-	let status = await git.status();
-	await git.fetch()
-	let currentBranch = (await git.branch()).current;
-	let diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`])
-	controlOptions.text = "Git++"
-	if(status.files.length > 0){
-		controlOptions.text += " *"
-	}if(diff.files.length > 0){
-		controlOptions.text += " ^"
-	}
-	control.setText(controlOptions.text)
-}
 
 let controlOptions = {
   text:"Git++",
@@ -58,10 +43,28 @@ let controlOptions = {
 }
 const createControl = (options)=> {
 	let res = new Control(options)
-	updateControlStatus(res,options)
+	//updateControlStatus(res,options)
 	return res
 }
 let control = createControl(controlOptions)
+
+const updateControlStatus = async(ctl=control,options=controlOptions)=>{
+	const simpleGit = require('simple-git/promise');
+
+	let git = simpleGit(graviton.getCurrentDirectory());
+	let status = await git.status();
+	await git.fetch()
+	let currentBranch = (await git.branch()).current;
+	let diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`])
+	options.text = "Git++"
+	if(status.files.length > 0){
+		options.text += " *"
+	}if(diff.files.length > 0){
+		options.text += " ^"
+	}
+	ctl.setText(options.text)
+}
+
 
 document.addEventListener("tab_created",(e)=>{
 	console.log("New tab's ID:"+e.detail.tab.id)
@@ -71,10 +74,12 @@ document.addEventListener("tab_created",(e)=>{
 })
 
 document.addEventListener("loaded_project",(e)=>{
-	updateControlStatus(control,controlOptions)
+	updateControlStatus()
 })
 
 setInterval(async()=>{
-	updateControlStatus(control,controlOptions)
+	updateControlStatus()
 },10000)
+
+graviton.gitPlusPlus.updateControlStatus = updateControlStatus
 
