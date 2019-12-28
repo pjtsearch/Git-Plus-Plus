@@ -12,7 +12,9 @@ const push = require("./push")
 const pull = require("./pull")
 const addRemote = require("./addRemote")
 const multi = require("./multi")
+const openMenu = require("./menu")
 
+openMenu()
 
 const dropdown = new dropMenu({
   id:"git-plus-plus-dropdown"
