@@ -58,6 +58,7 @@ const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 	await git.fetch()
 	let currentBranch = (await git.branch()).current;
 	let diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`])
+	console.log(diff)
 	options.text = "Git++"
 	if(status.files.length > 0){
 		options.text += " *"
