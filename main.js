@@ -37,6 +37,3 @@ document.addEventListener("tab_created",function(e){
 	console.log("New tab's ID:"+e.detail.tab.id)
 })
 
-window.onkeyup = function(e){
-    if (e.altKey && e.key === "a") graviton.gitPlusPlus.toggleMenu()
-}

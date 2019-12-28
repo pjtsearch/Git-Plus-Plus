@@ -105,3 +105,6 @@ graviton.gitPlusPlus.toggleMenu = ()=>{
 	}
 }
 
+window.onkeydown = (e)=>{
+    if (e.altKey && e.key === "a") graviton.gitPlusPlus.toggleMenu()
+}
