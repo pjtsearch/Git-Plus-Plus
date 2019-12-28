@@ -70,6 +70,7 @@ const openMenu = ()=>{
 				let git = simpleGit(graviton.getCurrentDirectory());
 				console.log(await git.commit(this.commitMessage))
 				await this.updateStatus()
+				this.commitMessage = ""
 			}
 		},
 		computed:{
