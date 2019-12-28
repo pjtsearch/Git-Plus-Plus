@@ -88,7 +88,7 @@ graviton.gitPlusPlus.updateControlStatus = updateControlStatus
 
 
 // shortcut
-var {shortcutJS,Action,KeyCombo} = require("shortcutjs")
+var {shortcutJS,Action,KeyCombo} = require("./modules/shortcut.js")
 shortcutJS.init()
 shortcutJS.addAction(new Action('toggleGitPlusPlus', KeyCombo.fromString('ctrl shift a')))
 shortcutJS.subscribe('toggleGitPlusPlus', graviton.gitPlusPlus.toggleMenu)

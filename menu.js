@@ -1,4 +1,4 @@
-const Vue = require("vue/dist/vue.js")
+const Vue = require("./modules/vue.js")
 const simpleGit = require('simple-git/promise');
 
 const openMenu = ()=>{
