@@ -53,7 +53,7 @@ let control = createControl(controlOptions)
 const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 	const simpleGit = require('simple-git/promise');
 
-	let git = simpleGit(graviton.getCurrentDirectory());
+	let git = simpleGit(graviton.getCurrentDirectory()).silent(true);
 	//try{await git.revparse(["git-dir"])}catch(e){ return }
 	let status = await git.status();
 	await git.fetch()
