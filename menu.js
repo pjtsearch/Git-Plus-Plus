@@ -12,17 +12,25 @@ const openMenu = ()=>{
 `
 <div class="vue-content"></div>
 <style>
-.git-menu-staging{
-	margin:10px;
-  //height:calc(50vh - 115px);
-}
-#git-menu-commit{
-	padding:7px;
-}
 #git-menu-vue-content{
 	display: grid;
-	grid-template-rows: auto auto 50px;
+	grid-template-rows: auto auto 57px;
 	height: 100%;
+}
+
+.git-menu-staging{
+	margin:10px;
+}
+#git-menu-commit{
+	padding:10px;
+	display: grid;
+	grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+	grid-gap: 5px;
+	overflow: auto;
+}
+#git-menu-commit > input.input4 {
+    max-width: none;
+    margin: 3px;
 }
 </style>
 `
@@ -32,21 +40,21 @@ const openMenu = ()=>{
 		template:
 `
 <div id="git-menu-vue-content">
-	<div id="git-menu-unstaged" class="git-menu-staging" style="">
+	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="stageAll()" class="button1" style="float:right">Stage All</button></h3>
 		<p :key="file.path" v-for="file in unstaged">{{file.path}} - {{file.working_dir}}</p>
 	</div>
-	<div id="git-menu-staged" class="git-menu-staging" style="">
+	<div id="git-menu-staged" class="git-menu-staging">
 		<h3> Staged  <button @click="unstageAll()" class="button1" style="float:right">Unstage All</button></h3>
 		<p :key="file.path" v-for="file in staged">{{file.path}} - {{file.index}}</p>
 	</div>
 
-	<div id="git-menu-commit" style="padding:7px">
+	<div id="git-menu-commit">
 		<input class="input4" placeHolder="Commit message" v-model="commitMessage"></input>
-		<button style="margin:10px" @click="commit()" class="button1">Commit</button>
-		<button style="margin:10px" @click="openPush()" class="button1">Push</button>
-		<button style="margin:10px" @click="openPull()" class="button1">Pull</button>
-		<button style="margin:10px" @click="closeMenu()" class="button1">Close</button>
+		<button @click="commit()" class="button1">Commit</button>
+		<button @click="openPush()" class="button1">Push</button>
+		<button @click="openPull()" class="button1">Pull</button>
+		<button @click="closeMenu()" class="button1">Close</button>
 	</div>
 </div>
 `
