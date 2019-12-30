@@ -109,7 +109,14 @@ const openMenu = ()=>{
 				this.commitMessage = ""
 			},
 			async changeBranch({target:{value}}){
-				console.log(value)
+				let git = simpleGit(graviton.getCurrentDirectory());
+				try {
+					await git.checkout(value)
+				}catch(err){
+					console.log(err)
+					new Notification({title:"Error changing branch:",content:err})
+				}
+				await this.updateStatus()
 			},
 			closeMenu(){
 				graviton.gitPlusPlus.closeMenu()
