@@ -14,7 +14,7 @@ const openMenu = ()=>{
 <style>
 #git-menu-vue-content{
 	display: grid;
-	grid-template-rows: auto auto 57px;
+	grid-template-rows: auto 1fr 1fr auto;
 	height: 100%;
 }
 
@@ -32,6 +32,9 @@ const openMenu = ()=>{
     max-width: none;
     margin: 3px;
 }
+#git-menu-branch{
+	margin:8px;
+}
 </style>
 `
 	}) 
@@ -40,6 +43,9 @@ const openMenu = ()=>{
 		template:
 `
 <div id="git-menu-vue-content">
+	<select id="git-menu-branch" :value="currentBranch" @change="changeBranch($event)">
+		<option v-for="branch in branches">{{branch}}</option>
+	</select>
 	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="stageAll()" class="button1" style="float:right">Stage All</button></h3>
 		<p :key="file.path" v-for="file in unstaged">{{file.path}} - {{file.working_dir}}</p>
@@ -60,7 +66,9 @@ const openMenu = ()=>{
 `
 		,data: {
 			status:null,
-			commitMessage:""
+			commitMessage:"",
+			currentBranch:0,
+			branches:[]
 		},
 		async beforeMount(){
 			await this.updateStatus()
@@ -74,6 +82,9 @@ const openMenu = ()=>{
 				this.status = await git.status();
 				console.log(this.status)
 				graviton.gitPlusPlus.updateControlStatus()
+				let branches = await git.branchLocal()
+				this.branches = branches.all
+				this.currentBranch = branches.all.find(branch=>branch===branches.current)
 			},
 			openPush(){
 				graviton.gitPlusPlus.openPush()
@@ -96,6 +107,9 @@ const openMenu = ()=>{
 				console.log(await git.commit(this.commitMessage))
 				await this.updateStatus()
 				this.commitMessage = ""
+			},
+			async changeBranch({target:{value}}){
+				console.log(value)
 			},
 			closeMenu(){
 				graviton.gitPlusPlus.closeMenu()
