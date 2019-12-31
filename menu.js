@@ -24,7 +24,7 @@ const openMenu = ()=>{
 #git-menu-commit{
 	padding:10px;
 	display: grid;
-	grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 4fr auto auto auto;
 	grid-gap: 5px;
 	overflow: auto;
 }
@@ -34,6 +34,19 @@ const openMenu = ()=>{
 }
 #git-menu-branch{
 	margin:8px;
+}
+#git-menu-close-button{
+	margin:14px;
+	margin-left:auto;
+}
+#git-menu-bottom{
+	display: grid;
+	grid-template-columns: 5fr 1fr;
+}
+.round-button{
+	border-radius: 100%!important;
+	width: 42px!important;
+	padding: 9px!important;
 }
 </style>
 `
@@ -54,13 +67,14 @@ const openMenu = ()=>{
 		<h3> Staged  <button @click="unstageAll()" class="button1" style="float:right">Unstage All</button></h3>
 		<p :key="file.path" v-for="file in staged">{{file.path}} - {{file.index}}</p>
 	</div>
-
-	<div id="git-menu-commit">
-		<input class="input4" placeHolder="Commit message" v-model="commitMessage"></input>
-		<button @click="commit()" class="button1">Commit</button>
-		<button @click="openPush()" class="button1">Push</button>
-		<button @click="openPull()" class="button1">Pull</button>
-		<button @click="closeMenu()" class="button1">Close</button>
+	<dig id="git-menu-bottom">
+		<div id="git-menu-commit">
+			<input class="input4" placeHolder="Commit message" v-model="commitMessage"></input>
+			<button @click="commit()" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M17,12C17,14.42 15.28,16.44 13,16.9V21H11V16.9C8.72,16.44 7,14.42 7,12C7,9.58 8.72,7.56 11,7.1V3H13V7.1C15.28,7.56 17,9.58 17,12M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /> </svg></button>
+			<button @click="openPush()" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" /> </svg></button>
+			<button @click="openPull()" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" /> </svg></button>
+		</div>
+		<button @click="closeMenu()" class="button1 round-button" id="git-menu-close-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /> </svg></button>
 	</div>
 </div>
 `
