@@ -61,11 +61,11 @@ const openMenu = ()=>{
 	</select>
 	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="stageAll()" class="button1" style="float:right">Stage All</button></h3>
-		<p :key="file.path" v-for="file in unstaged">{{file.path}} - {{file.working_dir}}</p>
+		<p :key="file.path" v-for="file in unstaged" @click="stage(file.path)">{{file.path}} - {{file.working_dir}}</p>
 	</div>
 	<div id="git-menu-staged" class="git-menu-staging">
 		<h3> Staged  <button @click="unstageAll()" class="button1" style="float:right">Unstage All</button></h3>
-		<p :key="file.path" v-for="file in staged">{{file.path}} - {{file.index}}</p>
+		<p :key="file.path" v-for="file in staged" @click="unstage(file.path)">{{file.path}} - {{file.index}}</p>
 	</div>
 	<dig id="git-menu-bottom">
 		<div id="git-menu-commit">
@@ -111,9 +111,19 @@ const openMenu = ()=>{
 				console.log(await git.add('./*'));
 				await this.updateStatus()
 			},
+			async stage(file){
+				let git = simpleGit(graviton.getCurrentDirectory());
+				console.log(await git.add(file));
+				await this.updateStatus()
+			},
 			async unstageAll(){
 				let git = simpleGit(graviton.getCurrentDirectory());
 				console.log(await git.reset(['./*']));
+				await this.updateStatus()
+			},
+			async unstage(file){
+				let git = simpleGit(graviton.getCurrentDirectory());
+				console.log(await git.reset([file]));
 				await this.updateStatus()
 			},
 			async commit(){
