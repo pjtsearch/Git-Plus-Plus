@@ -45,8 +45,8 @@ const openMenu = ()=>{
 }
 .round-button{
 	border-radius: 100%!important;
-	width: 42px!important;
-	padding: 9px!important;
+	width: 45px!important;
+	padding: 10px!important;
 }
 </style>
 `
@@ -60,11 +60,11 @@ const openMenu = ()=>{
 		<option v-for="branch in branches">{{branch}}</option>
 	</select>
 	<div id="git-menu-unstaged" class="git-menu-staging">
-		<h3> Unstaged <button @click="stageAll()" class="button1" style="float:right">Stage All</button></h3>
+		<h3> Unstaged <button @click="stageAll()" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M18,14V10H16V14H12V16H16V20H18V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		<p :key="file.path" v-for="file in unstaged" @click="stage(file.path)">{{file.path}} - {{file.working_dir}}</p>
 	</div>
 	<div id="git-menu-staged" class="git-menu-staging">
-		<h3> Staged  <button @click="unstageAll()" class="button1" style="float:right">Unstage All</button></h3>
+		<h3> Staged  <button @click="unstageAll()" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M12,14V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		<p :key="file.path" v-for="file in staged" @click="unstage(file.path)">{{file.path}} - {{file.index}}</p>
 	</div>
 	<dig id="git-menu-bottom">
