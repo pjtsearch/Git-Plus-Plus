@@ -56,8 +56,8 @@ const openMenu = ()=>{
 		template:
 `
 <div id="git-menu-vue-content">
-	<select id="git-menu-branch" :value="currentBranch" @change="changeBranch($event)">
-		<option v-for="branch in branches">{{branch}}</option>
+	<select id="git-menu-branch" v-model="currentBranch" @change="changeBranch($event)">
+		<option v-for="branch in branches" :key="branch">{{branch}}</option>
 	</select>
 	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="stageAll()" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M18,14V10H16V14H12V16H16V20H18V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
@@ -67,7 +67,7 @@ const openMenu = ()=>{
 		<h3> Staged  <button @click="unstageAll()" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M12,14V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		<p :key="file.path" v-for="file in staged" @click="unstage(file.path)">{{file.path}} - {{file.index}}</p>
 	</div>
-	<dig id="git-menu-bottom">
+	<div id="git-menu-bottom">
 		<div id="git-menu-commit">
 			<input class="input4" placeHolder="Commit message" v-model="commitMessage"></input>
 			<button @click="commit()" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M17,12C17,14.42 15.28,16.44 13,16.9V21H11V16.9C8.72,16.44 7,14.42 7,12C7,9.58 8.72,7.56 11,7.1V3H13V7.1C15.28,7.56 17,9.58 17,12M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /> </svg></button>
@@ -81,7 +81,7 @@ const openMenu = ()=>{
 		,data: {
 			status:null,
 			commitMessage:"",
-			currentBranch:0,
+			currentBranch:"",
 			branches:[]
 		},
 		async beforeMount(){
