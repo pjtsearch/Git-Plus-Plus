@@ -46,6 +46,7 @@ const openMenu = ()=>{
 .round-button{
 	border-radius: 100%!important;
 	width: 45px!important;
+	height: 45px!important;
 	padding: 10px!important;
 }
 </style>
