@@ -11,11 +11,9 @@ let openPull = async()=>{
 			id: "git-plus-plus-status-dialog",
 			title: "Git Pull",
 			content: `
-<!--<input class="input4" id="pull-remote" placeHolder="Remote"></input>-->
 <select id="pull-remote">
 ${remotes.map(remote=>`<option>${remote}</option>`).join("\n")}
 </select>
-<!--<input class="input4" id="pull-branch" placeHolder="Branch"></input>-->
 <select id="pull-branch">
 ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 </select>
