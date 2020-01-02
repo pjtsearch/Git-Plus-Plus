@@ -16,6 +16,7 @@ const openMenu = ()=>{
 	display: grid;
 	grid-template-rows: auto 1fr 1fr auto;
 	height: 100%;
+	overflow:auto;
 }
 
 .git-menu-staging{
