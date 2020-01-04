@@ -2,8 +2,10 @@ const Vue = require("./modules/vue.js")
 const simpleGit = require('simple-git/promise');
 
 const openMenu = ()=>{
-	graviton.gitPlusPlus.isMenuOpen = true
+	//graviton.gitPlusPlus.isMenuOpen = true
+	let oldScreensLength = editor_screens.length
 	screens.add()
+	graviton.gitPlusPlus.screenId = editor_screens[oldScreensLength].id
 	var tab = new Tab({
 		id:"git_menu",
 		type:"free",
@@ -166,12 +168,14 @@ graviton.gitPlusPlus.openMenu = openMenu
 
 graviton.gitPlusPlus.closeMenu = ()=>{
 	closeTab("git_menufree")
-	screens.remove(editor_screens[1].id)
-	graviton.gitPlusPlus.isMenuOpen = false
+	if(editor_screens.length > 1){
+		screens.remove(graviton.gitPlusPlus.screenId)
+	}
+	//graviton.gitPlusPlus.isMenuOpen = false
 }
 
 graviton.gitPlusPlus.toggleMenu = ()=>{
-	if (graviton.gitPlusPlus.isMenuOpen){
+	if (tabs.findIndex(tab=>tab.id==="git_menufree") > -1){
 		graviton.gitPlusPlus.closeMenu()
 	}else{
 		graviton.gitPlusPlus.openMenu()

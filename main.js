@@ -76,6 +76,7 @@ const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 document.addEventListener("tab_created",(e)=>{
 	console.log("New tab's ID:"+e.detail.tab.id)
 	if (!document.querySelector(".g_status_bar > span[title='Toggle Git++ menu']")){
+		controlOptions.screen = editor_screens[0].id
 		control = createControl(controlOptions)
 	}
 })
