@@ -55,6 +55,8 @@ const openMenu = ()=>{
 </style>
 `
 	}) 
+	//TODO To fix Graviton "ed.execute is not a function" error, probably will be fixed in Graviton eventually, so eventually remove this 
+	editors.find(item=>item.id === "git_menu_editor").execute = ()=>{}
 	var menu = new Vue({
 		el: '#git_menu_editor .vue-content',
 		template:
