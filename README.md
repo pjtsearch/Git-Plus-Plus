@@ -13,4 +13,11 @@ A Git plugin for Graviton.
 - Pull
 - Add Remote
 
+## Usage
+* Open the Git++ Menu using either the control at the bottom of the screen, the dropdown at the top, or the shortcut ctrl+shift+a
+
+## Screenshot
+
+![Screenshot of Git++](screenshot.png)
+
 GPL v3
