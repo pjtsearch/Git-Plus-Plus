@@ -11,7 +11,6 @@ const init = require("./init")
 const push = require("./push")
 const pull = require("./pull")
 const addRemote = require("./addRemote")
-const addBranch = require("./addBranch")
 //const multi = require("./multi")
 const openMenu = require("./menu")
 
@@ -31,7 +30,6 @@ dropdown.setList({
 		"Init":init,
 		"Push":push,
 		"Add Remote":addRemote,
-		"Add Branch":addBranch,
 		"Pull":pull,
 		"Open Menu (ctrl+shift+a)":{click:openMenu}
   }
@@ -60,7 +58,12 @@ const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 	let status = await git.status();
 	await git.fetch()
 	let currentBranch = (await git.branch()).current;
-	let diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`])
+	let diff;
+	if ((await git.branch()).all.includes(`origin/${currentBranch}`)){
+		diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`])
+	}else{
+		diff = {files:[]}
+	}
 	//console.log(diff)
 	options.text = "Git++"
 	if(status.files.length > 0){
@@ -76,7 +79,6 @@ const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 document.addEventListener("tab_created",(e)=>{
 	console.log("New tab's ID:"+e.detail.tab.id)
 	if (!document.querySelector(".g_status_bar > span[title='Toggle Git++ menu']")){
-		controlOptions.screen = editor_screens[0].id
 		control = createControl(controlOptions)
 	}
 })
