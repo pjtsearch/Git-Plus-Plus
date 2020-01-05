@@ -22,7 +22,13 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 				"Pull": {click:async()=>{
 					let remote = document.getElementById("pull-remote").value;
 					let branch = document.getElementById("pull-branch").value;
-					console.log(await git.pull(remote,branch))
+					try{
+						console.log(await git.pull(remote,branch))
+						new Notification({title:"Pulled successfully",content:`From ${remote} ${branch}`})
+					}catch(err){
+						console.log(err)
+						new Notification({title:"Error pushing:",content:err})
+					}
 					graviton.gitPlusPlus.updateControlStatus()
 				}},
 				"Close": "closeDialog(this);"

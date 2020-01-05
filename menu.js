@@ -114,27 +114,53 @@ const openMenu = ()=>{
 			},
 			async stageAll(){
 				let git = simpleGit(graviton.getCurrentDirectory());
-				console.log(await git.add('./*'));
+				try{
+					console.log(await git.add('./*'));
+				}catch(err){
+					console.log(err)
+					new Notification({title:"Error staging:",content:err})
+				}
 				await this.updateStatus()
 			},
 			async stage(file){
 				let git = simpleGit(graviton.getCurrentDirectory());
-				console.log(await git.add(file));
+				try{
+					console.log(await git.add(file));
+				}catch(err){
+					console.log(err)
+					new Notification({title:"Error staging:",content:err})
+				}
 				await this.updateStatus()
 			},
 			async unstageAll(){
 				let git = simpleGit(graviton.getCurrentDirectory());
-				console.log(await git.reset(['./*']));
+				try{
+					console.log(await git.reset(['./*']));
+				}catch(err){
+					console.log(err)
+					new Notification({title:"Error unstaging:",content:err})
+				}
 				await this.updateStatus()
 			},
 			async unstage(file){
 				let git = simpleGit(graviton.getCurrentDirectory());
-				console.log(await git.reset([file]));
+				try{
+					console.log(await git.reset([file]));
+				}catch(err){
+					console.log(err)
+					new Notification({title:"Error unstaging:",content:err})
+				}
 				await this.updateStatus()
 			},
 			async commit(){
 				let git = simpleGit(graviton.getCurrentDirectory());
-				console.log(await git.commit(this.commitMessage))
+				try{
+					console.log(await git.commit(this.commitMessage))
+					new Notification({title:"Commited successfully",content:""})
+				}catch(err){
+					console.log(err)
+					new Notification({title:"Error commiting:",content:err})
+				}
 				await this.updateStatus()
 				this.commitMessage = ""
 			},
@@ -142,6 +168,7 @@ const openMenu = ()=>{
 				let git = simpleGit(graviton.getCurrentDirectory());
 				try {
 					await git.checkout(value)
+					new Notification({title:"Branch changed",content:`Now in ${value}`})
 				}catch(err){
 					console.log(err)
 					new Notification({title:"Error changing branch:",content:err})
