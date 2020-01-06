@@ -2535,7 +2535,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	</div>
 	<div id="git-menu-bottom">
 		<div id="git-menu-commit">
-			<input class="input4" placeHolder="Commit message" @change="${e=> this.commitMessage = e.target.value}" value="${this.commitMessage}"></input>
+			<input class="input4" placeHolder="Commit message" @change="${e=> this.commitMessage = e.target.value}" .value="${this.commitMessage}"></input>
 			<button @click="${this.commit}" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M17,12C17,14.42 15.28,16.44 13,16.9V21H11V16.9C8.72,16.44 7,14.42 7,12C7,9.58 8.72,7.56 11,7.1V3H13V7.1C15.28,7.56 17,9.58 17,12M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /> </svg></button>
 			<button @click="${this.openPush}" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" /> </svg></button>
 			<button @click="${this.openPull}" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" /> </svg></button>
