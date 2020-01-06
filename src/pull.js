@@ -1,6 +1,6 @@
 const simpleGit = require('simple-git/promise');
-
-let openPull = async()=>{
+export default()=>{
+	let openPull = async()=>{
 		const git = simpleGit(graviton.getCurrentDirectory());
 
 		const status = await git.status();
@@ -34,8 +34,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 				"Close": "closeDialog(this);"
 			}
 		})
-		}
-
-graviton.gitPlusPlus.openPull = openPull
-
-module.exports = {click:openPull}
+	}
+	graviton.gitPlusPlus.openPull = openPull
+	return {click:openPull};
+}
