@@ -3,6 +3,7 @@ const simpleGit = require('simple-git/promise');
 import openPush from "./push"
 import openPull from "./pull"
 
+let screenId;
 // Extend the LitElement base class
 class GitPlusPlusMenu extends LitElement {
 	static get properties() {
@@ -198,9 +199,8 @@ customElements.define('git-plus-plus-menu', GitPlusPlusMenu);
 
 export const openMenu = ()=>{
 	//graviton.gitPlusPlus.isMenuOpen = true
-	let oldScreensLength = editor_screens.length
 	screens.add()
-	graviton.gitPlusPlus.screenId = editor_screens[oldScreensLength].id
+	screenId = editor_screens[editor_screens.length - 1].id
 	var tab = new Tab({
 		id:"git_menu",
 		type:"free",
@@ -221,7 +221,7 @@ export const openMenu = ()=>{
 export const closeMenu = ()=>{
 	closeTab("git_menufree")
 	if(editor_screens.length > 1){
-		screens.remove(graviton.gitPlusPlus.screenId)
+		screens.remove(screenId)
 	}
 	//graviton.gitPlusPlus.isMenuOpen = false
 }

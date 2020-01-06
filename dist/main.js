@@ -2488,6 +2488,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 
 	const simpleGit$5 = require('simple-git/promise');
 
+	let screenId;
 	// Extend the LitElement base class
 	class GitPlusPlusMenu extends LitElement {
 		static get properties() {
@@ -2683,9 +2684,8 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 
 	const openMenu = ()=>{
 		//graviton.gitPlusPlus.isMenuOpen = true
-		let oldScreensLength = editor_screens.length;
 		screens.add();
-		graviton.gitPlusPlus.screenId = editor_screens[oldScreensLength].id;
+		screenId = editor_screens[editor_screens.length - 1].id;
 		var tab = new Tab({
 			id:"git_menu",
 			type:"free",
@@ -2706,7 +2706,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	const closeMenu = ()=>{
 		closeTab("git_menufree");
 		if(editor_screens.length > 1){
-			screens.remove(graviton.gitPlusPlus.screenId);
+			screens.remove(screenId);
 		}
 		//graviton.gitPlusPlus.isMenuOpen = false
 	};
