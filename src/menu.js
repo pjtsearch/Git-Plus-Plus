@@ -1,7 +1,37 @@
-const Vue = require("./modules/vue.js")
+import { LitElement, html } from 'lit-element';
 const simpleGit = require('simple-git/promise');
+import openPush from "./push"
+import openPull from "./pull"
 
-const openMenu = ()=>{
+
+// Extend the LitElement base class
+class MyElement extends LitElement {
+
+	/**
+	 * Implement `render` to define a template for your element.
+	 *
+	 * You must provide an implementation of `render` for any element
+	 * that uses LitElement as a base class.
+	 */
+	render(){
+		/**
+		 * `render` must return a lit-html `TemplateResult`.
+		 *
+		 * To create a `TemplateResult`, tag a JavaScript template literal
+		 * with the `html` helper function:
+		 */
+		return html`
+			<!-- template content -->
+			<p>A paragraph</p>
+		`;
+	}
+}
+// Register the new element with the browser.
+customElements.define('my-element', MyElement);
+
+const Vue = require("../modules/vue.js")
+
+export const openMenu = ()=>{
 	//graviton.gitPlusPlus.isMenuOpen = true
 	let oldScreensLength = editor_screens.length
 	screens.add()
@@ -32,8 +62,8 @@ const openMenu = ()=>{
 	overflow: auto;
 }
 #git-menu-commit > input.input4 {
-    max-width: none;
-    margin: 3px;
+		max-width: none;
+		margin: 3px;
 }
 #git-menu-branch{
 	margin:8px;
@@ -107,10 +137,10 @@ const openMenu = ()=>{
 				this.currentBranch = branches.all.find(branch=>branch===branches.current)
 			},
 			openPush(){
-				graviton.gitPlusPlus.openPush()
+				openPush()
 			},
 			openPull(){
-				graviton.gitPlusPlus.openPull()
+				openPull()
 			},
 			async stageAll(){
 				let git = simpleGit(graviton.getCurrentDirectory());
@@ -176,7 +206,7 @@ const openMenu = ()=>{
 				await this.updateStatus()
 			},
 			closeMenu(){
-				graviton.gitPlusPlus.closeMenu()
+				closeMenu()
 			}
 		},
 		computed:{
@@ -191,11 +221,9 @@ const openMenu = ()=>{
 	//puffin.render(Menu,document.getElementById("git_menu_editor"))
 }
 
-graviton.gitPlusPlus.isMenuOpen = false
+//graviton.gitPlusPlus.isMenuOpen = false
 
-graviton.gitPlusPlus.openMenu = openMenu
-
-graviton.gitPlusPlus.closeMenu = ()=>{
+export const closeMenu = ()=>{
 	closeTab("git_menufree")
 	if(editor_screens.length > 1){
 		screens.remove(graviton.gitPlusPlus.screenId)
@@ -203,12 +231,10 @@ graviton.gitPlusPlus.closeMenu = ()=>{
 	//graviton.gitPlusPlus.isMenuOpen = false
 }
 
-graviton.gitPlusPlus.toggleMenu = ()=>{
+export const toggleMenu = ()=>{
 	if (tabs.findIndex(tab=>tab.id==="git_menufree") > -1){
-		graviton.gitPlusPlus.closeMenu()
+		closeMenu()
 	}else{
-		graviton.gitPlusPlus.openMenu()
+		openMenu()
 	}
 }
-
-module.exports = openMenu

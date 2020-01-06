@@ -1,6 +1,6 @@
 const simpleGit = require('simple-git/promise');
 
-module.exports = {
+export default {
 	click:async()=>{
 		const git = simpleGit(graviton.getCurrentDirectory());
 
