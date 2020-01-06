@@ -1,4 +1,5 @@
 const simpleGit = require('simple-git/promise');
+import {updateControlStatus} from "./control"
 
  let openPull = async()=>{
 	const git = simpleGit(graviton.getCurrentDirectory());
@@ -29,7 +30,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 					console.log(err)
 					new Notification({title:"Error pushing:",content:err})
 				}
-				graviton.gitPlusPlus.updateControlStatus()
+				updateControlStatus()
 			}},
 			"Close": "closeDialog(this);"
 		}

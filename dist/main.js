@@ -16,143 +16,6 @@
 		}
 	};
 
-	const simpleGit$1 = require('simple-git/promise');
-	let openPush = async()=>{
-		const git = simpleGit$1(graviton.getCurrentDirectory());
-
-		const status = await git.status();
-		const remotes = (await git.getRemotes()).map(remote=>remote.name);
-		const branches = (await git.branch()).all;
-
-		let dialog = new Dialog({
-			id: "git-plus-plus-status-dialog",
-			title: "Git Push",
-			content: `
-<select id="push-remote">
-${remotes.map(remote=>`<option>${remote}</option>`).join("\n")}
-</select>
-<select id="push-branch">
-${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
-</select>
-`,
-			buttons: {
-				"Push": {click:async()=>{
-					let remote = document.getElementById("push-remote").value;
-					let branch = document.getElementById("push-branch").value;
-					try{
-						console.log(await git.push(remote,branch));
-						new Notification({title:"Pushed successfully",content:`To ${remote} ${branch}`});
-					}catch(err){
-						console.log(err);
-						new Notification({title:"Error pushing:",content:err});
-					}
-					graviton.gitPlusPlus.updateControlStatus();
-				}},
-				"Close": "closeDialog(this);"
-			}
-		});
-	};
-
-	const simpleGit$2 = require('simple-git/promise');
-
-	 let openPull = async()=>{
-		const git = simpleGit$2(graviton.getCurrentDirectory());
-
-		const status = await git.status();
-		const remotes = (await git.getRemotes()).map(remote=>remote.name);
-		const branches = (await git.branch()).all;
-
-		let dialog = new Dialog({
-			id: "git-plus-plus-status-dialog",
-			title: "Git Pull",
-			content: `
-<select id="pull-remote">
-${remotes.map(remote=>`<option>${remote}</option>`).join("\n")}
-</select>
-<select id="pull-branch">
-${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
-</select>
-`,
-			buttons: {
-				"Pull": {click:async()=>{
-					let remote = document.getElementById("pull-remote").value;
-					let branch = document.getElementById("pull-branch").value;
-					try{
-						console.log(await git.pull(remote,branch));
-						new Notification({title:"Pulled successfully",content:`From ${remote} ${branch}`});
-					}catch(err){
-						console.log(err);
-						new Notification({title:"Error pushing:",content:err});
-					}
-					graviton.gitPlusPlus.updateControlStatus();
-				}},
-				"Close": "closeDialog(this);"
-			}
-		});
-		};
-
-	const simpleGit$3 = require('simple-git/promise');
-	var addRemote = {
-		click:async()=>{
-			const git = simpleGit$3(graviton.getCurrentDirectory());
-
-			const status = await git.status();
-
-			let dialog = new Dialog({
-				id: "git-plus-plus-status-dialog",
-				title: "Git Add Remote",
-				content: `
-<input class="input4" id="remote-name" placeHolder="Name"></input>
-<input class="input4" id="remote-url" placeHolder="URL"></input>
-`,
-				buttons: {
-					"Add": {click:async()=>{
-						let name = document.getElementById("remote-name").value;
-						let url = document.getElementById("remote-url").value;
-						try{
-							console.log(await git.addRemote(name,url));
-							new Notification({title:"Added remote successfully",content:`${name}: ${url}`});
-						}catch(err){
-							console.log(err);
-							new Notification({title:"Error adding remote:",content:err});
-						}
-					}},
-					"Close": "closeDialog(this);"
-				}
-			});
-			}
-	};
-
-	const simpleGit$4 = require('simple-git/promise');
-	var addBranch = {
-		click:async()=>{
-			const git = simpleGit$4(graviton.getCurrentDirectory());
-
-			const status = await git.status();
-
-			let dialog = new Dialog({
-				id: "git-plus-plus-status-dialog",
-				title: "Git Add Branch",
-				content: `
-<input class="input4" id="branch-name" placeHolder="Name"></input>
-`,
-				buttons: {
-					"Add": {click:async()=>{
-						let name = document.getElementById("branch-name").value;
-						try{
-							console.log(await git.checkoutBranch(name,"HEAD"));
-							new Notification({title:"Successfully added remote",content:`name: ${name}`});
-						}catch(err){
-							console.log(err);
-							new Notification({title:"Error adding remote:",content:err});
-						}
-					}},
-					"Close": "closeDialog(this);"
-				}
-			});
-			}
-	};
-
 	/**
 	 * @license
 	 * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -2486,7 +2349,45 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	 */
 	LitElement.render = render$1;
 
-	const simpleGit$5 = require('simple-git/promise');
+	const simpleGit$1 = require('simple-git/promise');
+
+	 let openPull = async()=>{
+		const git = simpleGit$1(graviton.getCurrentDirectory());
+
+		const status = await git.status();
+		const remotes = (await git.getRemotes()).map(remote=>remote.name);
+		const branches = (await git.branch()).all;
+
+		let dialog = new Dialog({
+			id: "git-plus-plus-status-dialog",
+			title: "Git Pull",
+			content: `
+<select id="pull-remote">
+${remotes.map(remote=>`<option>${remote}</option>`).join("\n")}
+</select>
+<select id="pull-branch">
+${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
+</select>
+`,
+			buttons: {
+				"Pull": {click:async()=>{
+					let remote = document.getElementById("pull-remote").value;
+					let branch = document.getElementById("pull-branch").value;
+					try{
+						console.log(await git.pull(remote,branch));
+						new Notification({title:"Pulled successfully",content:`From ${remote} ${branch}`});
+					}catch(err){
+						console.log(err);
+						new Notification({title:"Error pushing:",content:err});
+					}
+					updateControlStatus();
+				}},
+				"Close": "closeDialog(this);"
+			}
+		});
+		};
+
+	const simpleGit$2 = require('simple-git/promise');
 
 	let screenId;
 	// Extend the LitElement base class
@@ -2596,10 +2497,10 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 		}
 		
 		async updateStatus(){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			this.status = await git.status();
 			console.log(this.status);
-			graviton.gitPlusPlus.updateControlStatus();
+			updateControlStatus();
 			let branches = await git.branchLocal();
 			this.branches = branches.all;
 			this.currentBranch = branches.all.find(branch=>branch===branches.current);
@@ -2613,7 +2514,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			openPull();
 		}
 		async stageAll(){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			try{
 				console.log(await git.add('./*'));
 			}catch(err){
@@ -2623,7 +2524,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			await this.updateStatus();
 		}
 		async stage(file){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			try{
 				console.log(await git.add(file));
 			}catch(err){
@@ -2633,7 +2534,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			await this.updateStatus();
 		}
 		async unstageAll(){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			try{
 				console.log(await git.reset(['./*']));
 			}catch(err){
@@ -2643,7 +2544,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			await this.updateStatus();
 		}
 		async unstage(file){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			try{
 				console.log(await git.reset([file]));
 			}catch(err){
@@ -2653,7 +2554,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			await this.updateStatus();
 		}
 		async commit(){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			try{
 				console.log(await git.commit(this.commitMessage));
 				new Notification({title:"Commited successfully",content:""});
@@ -2665,7 +2566,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 			this.commitMessage = "";
 		}
 		async changeBranch({target:{value}}){
-			let git = simpleGit$5(graviton.getCurrentDirectory());
+			let git = simpleGit$2(graviton.getCurrentDirectory());
 			try {
 				await git.checkout(value);
 				new Notification({title:"Branch changed",content:`Now in ${value}`});
@@ -2719,7 +2620,174 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 		}
 	};
 
+	const simpleGit$3 = require('simple-git/promise');
+
+	var control;
+	var controlOptions;
+
+	const createControl = (options)=> {
+		let res = new Control(options);
+		//updateControlStatus(res,options)
+		return res
+	};
+
+	const updateControlStatus = async(ctl=control,options=controlOptions)=>{
+
+		
+		let git = simpleGit$3(graviton.getCurrentDirectory()).silent(true);
+		//try{await git.revparse(["git-dir"])}catch(e){ return }
+		let status = await git.status();
+		await git.fetch();
+		let currentBranch = (await git.branch()).current;
+		let diff;
+		if ((await git.branch()).all.includes(`remotes/origin/${currentBranch}`)){
+			diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`]);
+		}else{
+			diff = {files:[]};
+		}
+		
+		//console.log(diff)
+		options.text = "Git++";
+		if(status.files.length > 0){
+			options.text += " *";
+		}
+		if(diff.files.length > 0){
+			options.text += " ^";
+		}
+		ctl.setText(options.text);
+	};
+
+	const init$1 = ()=> {
+		controlOptions = {
+			text:"Git++",
+			hint:"Toggle Git++ menu",
+			onClick: ()=> toggleMenu(),
+			screen:editor_screens[0].id
+		};
+		control = createControl(controlOptions);
+		document.addEventListener("tab_created",(e)=>{
+			console.log("New tab's ID:"+e.detail.tab.id);
+			if (!document.querySelector(".g_status_bar > span[title='Toggle Git++ menu']")){
+				control = createControl(controlOptions);
+			}
+		});
+
+		document.addEventListener("loaded_project",(e)=>{
+			updateControlStatus();
+		});
+
+		setInterval(async()=>{
+			updateControlStatus();
+		},10000);
+
+		// shortcut
+		const {shortcutJS,Action,KeyCombo} = require("shortcutjs");
+		shortcutJS.init();
+		shortcutJS.addAction(new Action('toggleGitPlusPlus', KeyCombo.fromString('ctrl shift a')));
+		shortcutJS.subscribe('toggleGitPlusPlus', toggleMenu);
+	};
+
+	const simpleGit$4 = require('simple-git/promise');
+
+	let openPush = async()=>{
+		const git = simpleGit$4(graviton.getCurrentDirectory());
+
+		const status = await git.status();
+		const remotes = (await git.getRemotes()).map(remote=>remote.name);
+		const branches = (await git.branch()).all;
+
+		let dialog = new Dialog({
+			id: "git-plus-plus-status-dialog",
+			title: "Git Push",
+			content: `
+<select id="push-remote">
+${remotes.map(remote=>`<option>${remote}</option>`).join("\n")}
+</select>
+<select id="push-branch">
+${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
+</select>
+`,
+			buttons: {
+				"Push": {click:async()=>{
+					let remote = document.getElementById("push-remote").value;
+					let branch = document.getElementById("push-branch").value;
+					try{
+						console.log(await git.push(remote,branch));
+						new Notification({title:"Pushed successfully",content:`To ${remote} ${branch}`});
+					}catch(err){
+						console.log(err);
+						new Notification({title:"Error pushing:",content:err});
+					}
+					updateControlStatus();
+				}},
+				"Close": "closeDialog(this);"
+			}
+		});
+	};
+
+	const simpleGit$5 = require('simple-git/promise');
+	var addRemote = {
+		click:async()=>{
+			const git = simpleGit$5(graviton.getCurrentDirectory());
+
+			const status = await git.status();
+
+			let dialog = new Dialog({
+				id: "git-plus-plus-status-dialog",
+				title: "Git Add Remote",
+				content: `
+<input class="input4" id="remote-name" placeHolder="Name"></input>
+<input class="input4" id="remote-url" placeHolder="URL"></input>
+`,
+				buttons: {
+					"Add": {click:async()=>{
+						let name = document.getElementById("remote-name").value;
+						let url = document.getElementById("remote-url").value;
+						try{
+							console.log(await git.addRemote(name,url));
+							new Notification({title:"Added remote successfully",content:`${name}: ${url}`});
+						}catch(err){
+							console.log(err);
+							new Notification({title:"Error adding remote:",content:err});
+						}
+					}},
+					"Close": "closeDialog(this);"
+				}
+			});
+			}
+	};
+
 	const simpleGit$6 = require('simple-git/promise');
+	var addBranch = {
+		click:async()=>{
+			const git = simpleGit$6(graviton.getCurrentDirectory());
+
+			const status = await git.status();
+
+			let dialog = new Dialog({
+				id: "git-plus-plus-status-dialog",
+				title: "Git Add Branch",
+				content: `
+<input class="input4" id="branch-name" placeHolder="Name"></input>
+`,
+				buttons: {
+					"Add": {click:async()=>{
+						let name = document.getElementById("branch-name").value;
+						try{
+							console.log(await git.checkoutBranch(name,"HEAD"));
+							new Notification({title:"Successfully added remote",content:`name: ${name}`});
+						}catch(err){
+							console.log(err);
+							new Notification({title:"Error adding remote:",content:err});
+						}
+					}},
+					"Close": "closeDialog(this);"
+				}
+			});
+			}
+	};
+
+	const simpleGit$7 = require('simple-git/promise');
 	const semver = require('semver');
 	//openMenu()
 
@@ -2757,71 +2825,6 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 		}
 	});
 
-
-
-	//control
-	let controlOptions = {
-	  text:"Git++",
-	  hint:"Toggle Git++ menu",
-	  onClick: ()=> toggleMenu(),
-		screen:editor_screens[0].id
-	};
-	const createControl = (options)=> {
-		let res = new Control(options);
-		//updateControlStatus(res,options)
-		return res
-	};
-	let control = createControl(controlOptions);
-
-	const updateControlStatus = async(ctl=control,options=controlOptions)=>{
-
-		
-		let git = simpleGit$6(graviton.getCurrentDirectory()).silent(true);
-		//try{await git.revparse(["git-dir"])}catch(e){ return }
-		let status = await git.status();
-		await git.fetch();
-		let currentBranch = (await git.branch()).current;
-		let diff;
-		if ((await git.branch()).all.includes(`remotes/origin/${currentBranch}`)){
-			diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`]);
-		}else{
-			diff = {files:[]};
-		}
-		
-		//console.log(diff)
-		options.text = "Git++";
-		if(status.files.length > 0){
-			options.text += " *";
-		}
-		if(diff.files.length > 0){
-			options.text += " ^";
-		}
-		ctl.setText(options.text);
-	};
-
-
-	document.addEventListener("tab_created",(e)=>{
-		console.log("New tab's ID:"+e.detail.tab.id);
-		if (!document.querySelector(".g_status_bar > span[title='Toggle Git++ menu']")){
-			control = createControl(controlOptions);
-		}
-	});
-
-	document.addEventListener("loaded_project",(e)=>{
-		updateControlStatus();
-	});
-
-	setInterval(async()=>{
-		updateControlStatus();
-	},10000);
-
-	graviton.gitPlusPlus.updateControlStatus = updateControlStatus;
-
-
-	// shortcut
-	const {shortcutJS,Action,KeyCombo} = require("shortcutjs");
-	shortcutJS.init();
-	shortcutJS.addAction(new Action('toggleGitPlusPlus', KeyCombo.fromString('ctrl shift a')));
-	shortcutJS.subscribe('toggleGitPlusPlus', toggleMenu);
+	init$1();
 
 }());

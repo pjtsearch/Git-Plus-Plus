@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit-element';
 const simpleGit = require('simple-git/promise');
 import openPush from "./push"
 import openPull from "./pull"
+import {updateControlStatus} from "./control"
 
 let screenId;
 // Extend the LitElement base class
@@ -114,7 +115,7 @@ class GitPlusPlusMenu extends LitElement {
 		let git = simpleGit(graviton.getCurrentDirectory());
 		this.status = await git.status();
 		console.log(this.status)
-		graviton.gitPlusPlus.updateControlStatus()
+		updateControlStatus()
 		let branches = await git.branchLocal()
 		this.branches = branches.all
 		this.currentBranch = branches.all.find(branch=>branch===branches.current)
