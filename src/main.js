@@ -58,7 +58,7 @@ let control = createControl(controlOptions)
 
 const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 
-
+	
 	let git = simpleGit(graviton.getCurrentDirectory()).silent(true);
 	//try{await git.revparse(["git-dir"])}catch(e){ return }
 	let status = await git.status();
@@ -70,6 +70,7 @@ const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 	}else{
 		diff = {files:[]}
 	}
+	
 	//console.log(diff)
 	options.text = "Git++"
 	if(status.files.length > 0){
