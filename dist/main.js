@@ -2720,7 +2720,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	};
 
 	const simpleGit$6 = require('simple-git/promise');
-
+	const semver = require('semver');
 	//openMenu()
 
 
@@ -2728,6 +2728,14 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	  name:'Git++'
 	});
 	graviton.gitPlusPlus = gitPlusPlus;
+
+	if(!semver.satisfies(GravitonInfo.version,">=1.3.0")) {
+	  console.warn("Git++ doesn't work on your current version, you need at least 1.3.0");
+	  new Notification({
+	    title:"Git++",
+	    content:"You need Graviton v1.3.0+"
+		});
+	}
 
 	const dropdown = new dropMenu({
 		id:"git-plus-plus-dropdown"
