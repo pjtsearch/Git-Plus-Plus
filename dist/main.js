@@ -2681,8 +2681,6 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	// Register the new element with the browser.
 	customElements.define('git-plus-plus-menu', GitPlusPlusMenu);
 
-	const Vue = require("../modules/vue.js");
-
 	const openMenu = ()=>{
 		//graviton.gitPlusPlus.isMenuOpen = true
 		let oldScreensLength = editor_screens.length;

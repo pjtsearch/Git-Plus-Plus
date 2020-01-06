@@ -209,8 +209,6 @@ class GitPlusPlusMenu extends LitElement {
 // Register the new element with the browser.
 customElements.define('git-plus-plus-menu', GitPlusPlusMenu);
 
-const Vue = require("../modules/vue.js")
-
 export const openMenu = ()=>{
 	//graviton.gitPlusPlus.isMenuOpen = true
 	let oldScreensLength = editor_screens.length
