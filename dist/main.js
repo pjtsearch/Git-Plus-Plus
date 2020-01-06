@@ -2779,7 +2779,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 		await git.fetch();
 		let currentBranch = (await git.branch()).current;
 		let diff;
-		if ((await git.branch()).all.includes(`origin/${currentBranch}`)){
+		if ((await git.branch()).all.includes(`remotes/origin/${currentBranch}`)){
 			diff = await git.diffSummary([currentBranch,`origin/${currentBranch}`]);
 		}else{
 			diff = {files:[]};
