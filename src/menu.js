@@ -29,7 +29,8 @@ class GitPlusPlusMenu extends LitElement {
     };
   }
 	async connectedCallback() {
-  	super.connectedCallback()
+		super.connectedCallback()
+		this.commitMessage = ""
 		await this.updateStatus()
 		document.addEventListener("loaded_project",async(e)=>{
 			await this.updateStatus()

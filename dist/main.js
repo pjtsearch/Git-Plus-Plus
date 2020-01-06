@@ -2504,7 +2504,8 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	    };
 	  }
 		async connectedCallback() {
-	  	super.connectedCallback();
+			super.connectedCallback();
+			this.commitMessage = "";
 			await this.updateStatus();
 			document.addEventListener("loaded_project",async(e)=>{
 				await this.updateStatus();
