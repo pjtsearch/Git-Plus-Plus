@@ -3,19 +3,6 @@ const simpleGit = require('simple-git/promise');
 import openPush from "./push"
 import openPull from "./pull"
 
-const PropertyComputing = (base) => class extends base {
-  updated(changedProperties) {
-    super.updated(changedProperties);
-    Object.entries(this.constructor.properties)
-      .filter(([key, value]) => typeof value.compute === 'string')
-      .forEach(([key, value]) => {
-        if(value.deps.some(k => changedProperties.has(k))) {
-          this[key] = this[value.compute](...value.deps.map(dep => this[dep]))
-        }
-      })
-  }
-}
-
 // Extend the LitElement base class
 class GitPlusPlusMenu extends LitElement {
 	static get properties() {
