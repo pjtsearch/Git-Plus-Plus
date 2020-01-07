@@ -2411,6 +2411,37 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	};
 
     const simpleGit$2 = require('simple-git/promise');
+    var addBranch = {
+    	click:async()=>{
+    		const git = simpleGit$2(graviton.getCurrentDirectory());
+
+    		const status = await git.status();
+
+    		let dialog = new Dialog({
+    			id: "git-plus-plus-status-dialog",
+    			title: "Git Add Branch",
+    			content: `
+<input class="input4" id="branch-name" placeHolder="Name"></input>
+`,
+    			buttons: {
+    				"Add": {click:async()=>{
+    					let name = document.getElementById("branch-name").value;
+    					try{
+    						console.log(await git.checkoutBranch(name,"HEAD"));
+    						new Notification({title:"Successfully added remote",content:`name: ${name}`});
+    					}catch(err){
+    						console.log(err);
+    						new Notification({title:"Error adding remote:",content:err});
+    					}
+    				}},
+    				"Close": "closeDialog(this);"
+    			}
+    		});
+    		}
+    };
+
+    const simpleGit$3 = require('simple-git/promise');
+    const {click:openAddBranch} = addBranch;
 
     let screenId;
     // Extend the LitElement base class
@@ -2438,11 +2469,14 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     		
     		return html`
 <div id="git-menu-vue-content">
-	<select id="git-menu-branch" @change="${this.changeBranch}">
-		${this.branches.map(branch=>html`
-			<option ?selected=${this.currentBranch === branch} key="${branch}">${branch}</option>
-		`)}
-	</select>
+	<div id="git-menu-branch-container">
+		<select id="git-menu-branch" @change="${this.changeBranch}">
+			${this.branches.map(branch=>html`
+				<option ?selected=${this.currentBranch === branch} key="${branch}">${branch}</option>
+			`)}
+		</select>
+		<button @click="${this.openAddBranch}" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /> </svg></button>
+	</div>
 	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="${this.stageAll}" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M18,14V10H16V14H12V16H16V20H18V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		${this.unstaged.map(file=>html`
@@ -2504,6 +2538,10 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 	height: 45px!important;
 	padding: 10px!important;
 }
+#git-menu-branch-container{
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
 </style>
 		`;
     	}
@@ -2520,7 +2558,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	}
     	
     	async updateStatus(){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		this.status = await git.status();
     		console.log(this.status);
     		updateControlStatus();
@@ -2536,8 +2574,11 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	openPull(){
     		openPull();
     	}
+    	openAddBranch(){
+    		openAddBranch();
+    	}
     	async stageAll(){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		try{
     			console.log(await git.add('./*'));
     		}catch(err){
@@ -2547,7 +2588,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     		await this.updateStatus();
     	}
     	async stage(file){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		try{
     			console.log(await git.add(file));
     		}catch(err){
@@ -2557,7 +2598,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     		await this.updateStatus();
     	}
     	async unstageAll(){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		try{
     			console.log(await git.reset(['./*']));
     		}catch(err){
@@ -2567,7 +2608,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     		await this.updateStatus();
     	}
     	async unstage(file){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		try{
     			console.log(await git.reset([file]));
     		}catch(err){
@@ -2577,7 +2618,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     		await this.updateStatus();
     	}
     	async commit(){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		try{
     			console.log(await git.commit(this.commitMessage));
     			new Notification({title:"Commited successfully",content:""});
@@ -2589,7 +2630,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     		this.commitMessage = "";
     	}
     	async changeBranch({target:{value}}){
-    		let git = simpleGit$2(graviton.getCurrentDirectory());
+    		let git = simpleGit$3(graviton.getCurrentDirectory());
     		try {
     			await git.checkout(value);
     			new Notification({title:"Branch changed",content:`Now in ${value}`});
@@ -2643,7 +2684,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	}
     };
 
-    const simpleGit$3 = require('simple-git/promise');
+    const simpleGit$4 = require('simple-git/promise');
 
     var control;
     var controlOptions;
@@ -2657,7 +2698,7 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     const updateControlStatus = async(ctl=control,options=controlOptions)=>{
 
     	
-    	let git = simpleGit$3(graviton.getCurrentDirectory()).silent(true);
+    	let git = simpleGit$4(graviton.getCurrentDirectory()).silent(true);
     	//try{await git.revparse(["git-dir"])}catch(e){ return }
     	let status = await git.status();
     	await git.fetch();
@@ -2710,11 +2751,11 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	shortcutJS.subscribe('toggleGitPlusPlus', toggleMenu);
     };
 
-    const simpleGit$4 = require('simple-git/promise');
+    const simpleGit$5 = require('simple-git/promise');
 
     var init$1 = {
     	click:async()=>{
-    		const git = simpleGit$4(graviton.getCurrentDirectory());
+    		const git = simpleGit$5(graviton.getCurrentDirectory());
 
     		const init = await git.init();
     		
@@ -2725,10 +2766,10 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	}
     };
 
-    const simpleGit$5 = require('simple-git/promise');
+    const simpleGit$6 = require('simple-git/promise');
     var addRemote = {
     	click:async()=>{
-    		const git = simpleGit$5(graviton.getCurrentDirectory());
+    		const git = simpleGit$6(graviton.getCurrentDirectory());
 
     		const status = await git.status();
 
@@ -2746,36 +2787,6 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     					try{
     						console.log(await git.addRemote(name,url));
     						new Notification({title:"Added remote successfully",content:`${name}: ${url}`});
-    					}catch(err){
-    						console.log(err);
-    						new Notification({title:"Error adding remote:",content:err});
-    					}
-    				}},
-    				"Close": "closeDialog(this);"
-    			}
-    		});
-    		}
-    };
-
-    const simpleGit$6 = require('simple-git/promise');
-    var addBranch = {
-    	click:async()=>{
-    		const git = simpleGit$6(graviton.getCurrentDirectory());
-
-    		const status = await git.status();
-
-    		let dialog = new Dialog({
-    			id: "git-plus-plus-status-dialog",
-    			title: "Git Add Branch",
-    			content: `
-<input class="input4" id="branch-name" placeHolder="Name"></input>
-`,
-    			buttons: {
-    				"Add": {click:async()=>{
-    					let name = document.getElementById("branch-name").value;
-    					try{
-    						console.log(await git.checkoutBranch(name,"HEAD"));
-    						new Notification({title:"Successfully added remote",content:`name: ${name}`});
     					}catch(err){
     						console.log(err);
     						new Notification({title:"Error adding remote:",content:err});

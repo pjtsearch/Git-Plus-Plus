@@ -3,6 +3,8 @@ const simpleGit = require('simple-git/promise');
 import openPush from "./push"
 import openPull from "./pull"
 import {updateControlStatus} from "./control"
+import addBranch from "./addBranch"
+const {click:openAddBranch} = addBranch
 
 let screenId;
 // Extend the LitElement base class
@@ -30,11 +32,14 @@ class GitPlusPlusMenu extends LitElement {
 		
 		return html`
 <div id="git-menu-vue-content">
-	<select id="git-menu-branch" @change="${this.changeBranch}">
-		${this.branches.map(branch=>html`
-			<option ?selected=${this.currentBranch === branch} key="${branch}">${branch}</option>
-		`)}
-	</select>
+	<div id="git-menu-branch-container">
+		<select id="git-menu-branch" @change="${this.changeBranch}">
+			${this.branches.map(branch=>html`
+				<option ?selected=${this.currentBranch === branch} key="${branch}">${branch}</option>
+			`)}
+		</select>
+		<button @click="${this.openAddBranch}" class="button1 round-button"><svg style="width:24px;height:24px" viewBox="0 0 24 24"> <path fill="#000000" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /> </svg></button>
+	</div>
 	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="${this.stageAll}" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M18,14V10H16V14H12V16H16V20H18V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		${this.unstaged.map(file=>html`
@@ -96,6 +101,10 @@ class GitPlusPlusMenu extends LitElement {
 	height: 45px!important;
 	padding: 10px!important;
 }
+#git-menu-branch-container{
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
 </style>
 		`;
 	}
@@ -127,6 +136,9 @@ class GitPlusPlusMenu extends LitElement {
 	}
 	openPull(){
 		openPull()
+	}
+	openAddBranch(){
+		openAddBranch()
 	}
 	async stageAll(){
 		let git = simpleGit(graviton.getCurrentDirectory());
