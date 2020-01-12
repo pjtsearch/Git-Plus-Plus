@@ -43,13 +43,13 @@ class GitPlusPlusMenu extends LitElement {
 	<div id="git-menu-unstaged" class="git-menu-staging">
 		<h3> Unstaged <button @click="${this.stageAll}" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M18,14V10H16V14H12V16H16V20H18V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		${this.unstaged.map(file=>html`
-			<p key="${file.path}" @click="${()=>this.stage(file.path)}">${file.path} - ${file.working_dir}</p>
+			<p key="${file.path}" @click="${()=>this.stage(file.path)}">${file.working_dir} - ${file.path}</p>
 		`)}
 	</div>
 	<div id="git-menu-staged" class="git-menu-staging">
 		<h3> Staged  <button @click="${this.unstageAll}" class="button1 round-button" style="float:right"><svg viewBox="0 0 24 24"> <path d="M2,16H10V14H2M12,14V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"/> </svg></button></h3>
 		${this.staged.map(file=>html`
-			<p key="${file.path}" @click="${()=>this.unstage(file.path)}">${file.path} - ${file.index}</p>
+			<p key="${file.path}" @click="${()=>this.unstage(file.path)}">${file.index} - ${file.path}</p>
 		`)}
 	</div>
 	<div id="git-menu-bottom">
