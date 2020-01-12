@@ -1,5 +1,6 @@
 import {updateControlStatus,init as initControl} from "./control"
 import initDropdown from "./dropdown"
+import {init as initCommands} from "./commands"
 const semver = require('semver')
 
 
@@ -18,3 +19,5 @@ if(!semver.satisfies(GravitonInfo.version,">=1.3.0")) {
 
 initControl()
 initDropdown()
+//do on project load? is there an on app load
+setTimeout(()=>initCommands(),100)

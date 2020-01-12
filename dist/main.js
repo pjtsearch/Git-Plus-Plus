@@ -2820,6 +2820,11 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	});
     };
 
+    const init$2 = ()=>{
+    	GravitonCommander.options.push({name:"Git++ Push",action:openPush});
+    	GravitonCommander.options.push({name:"Git++ Pull",action:openPull});
+    };
+
     const semver = require('semver');
 
 
@@ -2838,5 +2843,6 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 
     init();
     initDropdown();
+    setTimeout(()=>init$2(),100);
 
 }());
