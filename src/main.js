@@ -19,5 +19,4 @@ if(!semver.satisfies(GravitonInfo.version,">=1.3.0")) {
 
 initControl()
 initDropdown()
-//do on project load? is there an on app load
-setTimeout(()=>initCommands(),100)
+document.addEventListener("loaded_project",initCommands)

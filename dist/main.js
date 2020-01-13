@@ -2820,9 +2820,24 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
     	});
     };
 
+    const simpleGit$7 = require('simple-git/promise');
+
+    const stageAll = async ()=>{
+    	let git = simpleGit$7(graviton.getCurrentDirectory());
+    	try{
+    		console.log(await git.add('./*'));
+    	}catch(err){
+    		console.log(err);
+    		new Notification({title:"Error staging:",content:err});
+    	}
+    	updateControlStatus();
+    };
+
     const init$2 = ()=>{
     	GravitonCommander.options.push({name:"Git++ Push",action:openPush});
     	GravitonCommander.options.push({name:"Git++ Pull",action:openPull});
+    	GravitonCommander.options.push({name:"Git++ Stage All",action:stageAll});
+    	GravitonCommander.options.push({name:"Git++ Toggle Menu",action:toggleMenu});
     };
 
     const semver = require('semver');
@@ -2843,6 +2858,6 @@ ${branches.map(branch=>`<option>${branch}</option>`).join("\n")}
 
     init();
     initDropdown();
-    setTimeout(()=>init$2(),100);
+    document.addEventListener("loaded_project",init$2);
 
 }());
