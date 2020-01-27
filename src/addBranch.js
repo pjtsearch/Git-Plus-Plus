@@ -16,10 +16,10 @@ export default {
 					let name = document.getElementById("branch-name").value;
 					try{
 						console.log(await git.checkoutBranch(name,"HEAD"))
-						new Notification({title:"Successfully added remote",content:`name: ${name}`})
+						new Notification({title:"Successfully added branch",content:`name: ${name}`})
 					}catch(err){
 						console.log(err)
-						new Notification({title:"Error adding remote:",content:err})
+						new Notification({title:"Error adding branch:",content:err})
 					}
 				}},
 				"Close": "closeDialog(this);"
